@@ -1,0 +1,551 @@
+.posinv-wrap{font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;max-width:1200px;margin:0 auto;padding:14px;font-size:14px;}
+.posinv-topbar{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:12px}
+.posinv-title strong{font-size:18px;font-size:16px;}
+.posinv-muted{color:#666;font-size:12px;font-size:11px;}
+.posinv-pill{display:inline-block;border:1px solid #ddd;border-radius:999px;padding:3px 8px;font-size:12px;background:#fff;padding:2px 7px;font-size:11px;}
+.posinv-link{font-size:12px;text-decoration:none;font-size:11px;}
+.posinv-controls{background:#fff;border:1px solid #e8e8e8;border-radius:14px;padding:10px 12px;margin-bottom:12px}
+.posinv-row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.posinv-row label{font-size:12px;color:#333;font-size:11px;}
+.posinv-row input,.posinv-row select{border:1px solid #d8d8d8;border-radius:10px;padding:10px 10px;min-width:240px}
+.posinv-btn{border:1px solid #111;background:#111;color:#fff;border-radius:10px;padding:10px 12px;cursor:pointer;font-size:13px;font-size:12px;padding:9px 11px;}
+.posinv-btn:disabled{opacity:.6;cursor:not-allowed}
+.posinv-btn-ghost{background:#fff;color:#111;border:1px solid #bbb}
+.posinv-btn-primary{background:#0f62fe;border-color:#0f62fe}
+.posinv-tabs{display:flex;gap:8px;margin-top:10px}
+.posinv-tab{border:1px solid #ddd;background:#fff;border-radius:10px;padding:8px 10px;cursor:pointer}
+.posinv-tab.is-active{background:#111;color:#fff;border-color:#111}
+.posinv-grid{display:grid;grid-template-columns:1.2fr 1fr;gap:12px}
+@media (max-width: 980px){.posinv-grid{grid-template-columns:1fr}}
+.posinv-panel{background:#fff;border:1px solid #e8e8e8;border-radius:14px;padding:12px}
+.posinv-search{display:flex;gap:8px;align-items:center;margin-bottom:10px}
+.posinv-search input{flex:1;border:1px solid #d8d8d8;border-radius:10px;padding:10px 10px;padding:9px 10px;}
+.posinv-results{display:flex;flex-direction:column;gap:10px;max-height:520px;overflow:auto;padding-right:6px}
+.posinv-item{display:flex;gap:10px;border:1px solid #eee;border-radius:12px;padding:10px;align-items:center;padding:9px;}
+.posinv-thumb{width:54px;height:54px;border-radius:10px;object-fit:cover;background:#f3f3f3;flex:0 0 auto;width:66px;height:66px;border-radius:12px;}
+.posinv-item-main{flex:1;min-width:0}
+.posinv-item-title{font-size:14px;font-weight:650;line-height:1.15;font-size:13px;}
+.posinv-item-sub{display:flex;gap:6px;flex-wrap:wrap;margin-top:6px}
+.posinv-item-side{display:flex;flex-direction:column;align-items:flex-end;gap:8px;gap:6px;}
+.posinv-money{font-variant-numeric:tabular-nums}
+.posinv-cart-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
+.posinv-cart-actions{display:flex;gap:8px;flex-wrap:wrap}
+.posinv-cart{display:flex;flex-direction:column;gap:10px;max-height:none;overflow:visible;padding-right:0}
+.posinv-line{display:flex;gap:10px;border:1px solid #eee;border-radius:12px;padding:10px;align-items:flex-start}
+.posinv-line-main{flex:1;min-width:0}
+.posinv-line-controls{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-top:8px}
+.posinv-line-controls label{font-size:12px;color:#333}
+.posinv-qty{width:90px;min-width:90px}
+.posinv-line-side{display:flex;flex-direction:column;gap:4px;align-items:flex-end;min-width:120px}
+.posinv-totals{border-top:1px solid #eee;margin-top:10px;padding-top:10px;display:flex;flex-direction:column;gap:10px}
+.posinv-row-split{justify-content:space-between}
+.posinv-msg{min-height:18px;font-size:13px;font-size:12px;}
+.posinv-msg.is-ok{color:#0a7a2f}
+.posinv-msg.is-warn{color:#8a5b00}
+.posinv-msg.is-err{color:#b10000}
+.posinv-footer{margin-top:10px;text-align:center}
+.posinv-modal{position:fixed;inset:0;background:rgba(0,0,0,.45);display:none;align-items:center;justify-content:center;padding:16px;z-index:99999}
+.posinv-modal.is-open{display:flex}
+.posinv-modal-card{background:#fff;border-radius:16px;max-width:380px;width:100%;padding:12px;border:1px solid #e8e8e8}
+.posinv-modal-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;gap:10px}
+.posinv-scan-reader{width:100%;max-width:300px;min-height:140px;margin:0 auto;border:1px dashed #ddd;border-radius:12px;padding:8px;display:flex;align-items:center;justify-content:center}
+
+.posinv-pill-label{font-size:10px;opacity:.8;letter-spacing:.2px;font-size:9px;}
+
+/* =========================
+   BODEGA - Botones Guardar + Eliminar en la MISMA LÍNEA
+   (algunos WebView los apilaban; forzamos layout horizontal)
+   ========================= */
+#posinv_bodega_loc_table td:last-child{
+  white-space: nowrap !important;
+}
+#posinv_bodega_loc_table .posinv-bodega-loc-save,
+#posinv_bodega_loc_table .posinv-bodega-loc-del{
+  display: inline-flex !important;
+  align-items: center;
+  justify-content: center;
+  width: auto !important;
+  vertical-align: middle;
+}
+#posinv_bodega_loc_table .posinv-bodega-loc-save{ margin-right: 8px !important; }
+#posinv_bodega_loc_table .posinv-bodega-loc-del{ margin-right: 0 !important; }
+
+
+/* Overrides para asegurar tamaños consistentes aunque el tema aplique estilos */
+.posinv-wrap, .posinv-wrap * { box-sizing: border-box; }
+.posinv-wrap { font-size: 13px !important; line-height: 1.25; }
+.posinv-wrap .posinv-item-title { font-size: 13px !important; }
+.posinv-wrap .posinv-item-sub { margin-top: 4px !important; }
+.posinv-wrap .posinv-pill { font-size: 10px !important; padding: 2px 6px !important; }
+.posinv-wrap .posinv-pill-label { font-size: 8px !important; }
+.posinv-wrap .posinv-thumb { width: 74px !important; height: 74px !important; }
+@media (max-width: 920px){
+  .posinv-wrap { font-size: 12px !important; }
+  .posinv-wrap .posinv-thumb { width: 78px !important; height: 78px !important; }
+  .posinv-wrap .posinv-item { padding: 8px !important; }
+}
+
+
+/* Category filter */
+.posinv-cat{min-width:220px;max-width:320px}
+@media (min-width: 981px){
+  .posinv-search{display:flex;flex-wrap:nowrap;gap:10px;align-items:center}
+  #posinvQuery{flex:1 1 360px;min-width:320px}
+  .posinv-cat{flex:0 0 280px}
+}
+@media (max-width: 980px){
+  .posinv-search{flex-wrap:wrap}
+  #posinvQuery,.posinv-cat{width:100%;max-width:100%}
+}
+
+
+/* Force search input visible on desktop themes */
+#posinvQuery{
+  display:block !important;
+  width:100% !important;
+  background:#fff !important;
+  border:1px solid #d8d8d8 !important;
+  border-radius:10px !important;
+  padding:10px 12px !important;
+  min-height:42px !important;
+  color:#111 !important;
+  visibility:visible !important;
+  opacity:1 !important;
+}
+#posinvQuery::placeholder{color:#777 !important; opacity:1 !important;}
+
+
+
+@media (min-width: 981px){
+  .posinv-search{display:flex !important; gap:10px !important; align-items:center !important; flex-wrap:nowrap !important;}
+  #posinvQuery{flex:1 1 320px !important; min-width:320px !important;}
+  .posinv-cat{flex:0 0 240px !important;}
+}
+
+
+
+/* Force 2 columns on desktop (restore right panel) */
+@media (min-width: 901px){
+  .posinv-grid{grid-template-columns:1.2fr 1fr !important;}
+}
+
+
+/* --- Etiquetas dentro del POS (vista tipo POS, no escritorio) --- */
+.posinv-labels-view{
+  margin-top: 14px;
+  background: #fff;
+  border: 1px solid rgba(0,0,0,.08);
+  border-radius: 10px;
+  padding: 12px;
+}
+.posinv-labels-head{
+  display:flex;
+  gap:10px;
+  align-items:baseline;
+  margin-bottom: 10px;
+}
+
+
+.posinv-version{
+  display:inline-block;
+  margin-left:10px;
+  padding:2px 8px;
+  border-radius:999px;
+  font-size:12px;
+  line-height:1.4;
+  background:#111;
+  color:#fff;
+  vertical-align:middle;
+  opacity:.85;
+}
+
+/* Stock+ (entrada) */
+.posinv-create{border-top:1px solid #eee;padding-top:10px;margin-top:10px}
+.posinv-create-title{font-weight:700;margin-bottom:8px}
+.posinv-label{display:block;font-size:12px;opacity:.8;margin-bottom:4px}
+.posinv-si-cart .posinv-si-item{display:flex;justify-content:space-between;align-items:center;border:1px solid #eee;border-radius:10px;padding:8px 10px;margin-bottom:8px}
+.posinv-si-item .posinv-si-left{display:flex;gap:10px;align-items:center;min-width:0}
+.posinv-si-item img{width:44px;height:44px;object-fit:cover;border-radius:8px;background:#f4f4f4}
+.posinv-si-item .posinv-si-name{font-weight:600;font-size:13px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:210px}
+.posinv-si-item .posinv-si-sub{font-size:12px;opacity:.75}
+.posinv-si-item input{width:70px}
+
+
+/* --- Stock+ (entrada) --- */
+#posinv_si_search{width:100%;}
+.posinv-si-row{display:flex;gap:10px;align-items:center;border:1px solid #eee;border-radius:12px;padding:10px;margin-bottom:8px;background:#fff;}
+.posinv-si-qty{width:90px;padding:8px 10px;border:1px solid #ddd;border-radius:10px;font-size:16px;}
+
+
+/* =========================
+   Stock+ (entrada) layout
+   - Evita columnas fijas que rompen en tablet
+   - Mantiene 2 columnas en escritorio y 1 columna en pantallas chicas
+========================= */
+.posinv-si-split{
+  display:grid;
+  grid-template-columns: 1fr 520px;
+  gap:14px;
+  align-items:start;
+}
+@media (max-width: 1100px){
+  .posinv-si-split{ grid-template-columns: 1fr; }
+}
+
+/* Dentro de "Aumentar stock": resultados + cola */
+.posinv-si-grid{
+  grid-template-columns: 1fr 420px;
+}
+@media (max-width: 980px){
+  .posinv-si-grid{ grid-template-columns: 1fr; }
+}
+
+/* Toolbar de Stock+ */
+.posinv-si-toolbar input#posinv_si_search{ flex: 1 1 320px; min-width: 240px; }
+.posinv-si-toolbar #posinv_si_category{ flex: 0 0 280px; max-width: 100%; }
+@media (max-width: 980px){
+  .posinv-si-toolbar #posinv_si_category{ flex: 1 1 100%; }
+}
+
+/* Evitar "letras en vertical" por columnas demasiado angostas */
+#posinv_si_results, .posinv-bc-results{
+  min-width: 0;
+}
+#posinv_si_results .posinv-item-title,
+#posinv_si_results .posinv-si-name,
+.posinv-item-title{
+  white-space: normal !important;
+  word-break: normal !important;
+  overflow-wrap: anywhere;
+}
+
+/* Columna de crear producto */
+.posinv-si-createcol{
+  background:#fff;
+  border:1px solid #e8e8e8;
+  border-radius:14px;
+  padding:12px;
+}
+.posinv-input{
+  width:100%;
+  border:1px solid #d8d8d8;
+  border-radius:10px;
+  padding:10px 12px;
+  min-height:42px;
+}
+.posinv-create-actions{
+  margin-top:12px;
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+}
+
+
+/* ===== Stock+ layout polish (view only) ===== */
+.posinv-si-stockbox,
+.posinv-si-createcol{
+  background:#fff;
+  border:1px solid #e8e8e8;
+  border-radius:18px;
+  padding:16px;
+}
+
+.posinv-si-stockbox .posinv-create-title,
+.posinv-si-createcol .posinv-create-title{
+  margin:0 0 12px !important;
+  font-size:18px;
+  font-weight:700;
+}
+
+.posinv-si-createcol .posinv-label{
+  display:block;
+  margin:10px 0 6px;
+  font-size:13px;
+  color:#333;
+}
+
+.posinv-si-createcol .posinv-input,
+.posinv-si-createcol .posinv-select{
+  width:100%;
+  max-width:100%;
+  min-width:0 !important;
+  box-sizing:border-box;
+  border-radius:14px;
+  padding:12px 12px;
+}
+
+.posinv-si-createcol .posinv-btn{
+  border-radius:14px;
+}
+
+.posinv-si-createcol #posinv_si_create{
+  padding:12px 16px;
+}
+
+.posinv-si-createcol .posinv-muted{
+  line-height:1.35;
+}
+
+/* Make photo buttons align nicely */
+.posinv-si-createcol .posinv-photo-row{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+}
+.posinv-si-createcol .posinv-photo-row .posinv-btn{
+  flex:1 1 180px;
+}
+
+/* Avoid “vertical letters” when container gets narrow (tablet) */
+.posinv-bc-results .posinv-item-title,
+.posinv-bc-results .posinv-item-main,
+.posinv-bc-results .posinv-item{
+  min-width:0;
+}
+.posinv-bc-results .posinv-item-title{
+  white-space:normal;
+  overflow-wrap:anywhere;
+  word-break:normal;
+}
+
+/* Slightly better spacing in Stock+ results list */
+.posinv-si-grid .posinv-bc-results{
+  padding:12px;
+  border-radius:14px;
+}
+.posinv-si-grid .posinv-bc-preview{
+  border-radius:14px;
+}
+
+/* Tablet: keep the two main columns readable */
+@media (max-width: 980px){
+  .posinv-bc-grid.posinv-si-main{
+    grid-template-columns:1fr;
+  }
+}
+
+/* ===== Bodega: compact UI (no afecta otras pestañas) ===== */
+#posinvBodegaView .posinv-bc-toolbar{ gap:8px; }
+#posinvBodegaView #posinv_bodega_loc_select{ min-width:180px !important; max-width:220px; }
+#posinvBodegaView #posinv_bodega_search{ max-width:260px; }
+#posinvBodegaView #posinv_bodega_cat{ min-width:180px !important; max-width:220px; }
+#posinvBodegaView .posinv-btn{ padding:7px 10px; border-radius:10px; }
+#posinvBodegaView .posinv-muted{ font-size:12px; }
+#posinvBodegaView .posinv-bc-toolbar input,
+#posinvBodegaView .posinv-bc-toolbar select{ height:38px; }
+#posinvBodegaView #posinv_bodega_loc_panel .posinv-btn{ padding:6px 10px; border-radius:10px; }
+#posinv_bodega_table input[type="text"],
+#posinv_bodega_table input[type="number"],
+#posinv_bodega_loc_table input[type="text"],
+#posinv_bodega_loc_table input[type="number"]{
+  padding:6px 8px;
+  border-radius:10px;
+}
+
+#posinvBodegaView #posinv_bodega_loc_panel{
+  margin-top:10px;
+  border:1px solid #ddd;
+  border-radius:14px;
+  padding:10px;
+  background:#fff;
+}
+#posinvBodegaView #posinv_bodega_loc_panel .posinv-bc-tablewrap{ margin-top:8px; }
+
+
+/* =========================
+   Caja: Turno / Pagos / Descuentos / Clientes
+   (v0.1.1.139)
+   ========================= */
+.posinv-customer-row{ display:flex; gap:8px; flex-wrap:wrap; align-items:center; }
+.posinv-customer-row input{ flex:1 1 220px; }
+.posinv-customer-quick{ display:flex; gap:8px; margin-top:8px; flex-wrap:wrap; }
+.posinv-customer-quick input{ flex:1 1 180px; }
+
+.posinv-discount-row{ display:flex; gap:8px; align-items:center; flex-wrap:wrap; }
+.posinv-discount-row select{ width:140px; }
+.posinv-discount-row input{ flex:1 1 120px; }
+
+.posinv-pay-row{ display:flex; gap:8px; align-items:center; flex-wrap:wrap; }
+.posinv-pay-row select{ width:220px; }
+.posinv-pay-mixed{ margin-top:8px; display:flex; gap:8px; flex-wrap:wrap; }
+.posinv-pay-mixed input{ flex:1 1 140px; }
+
+.posinv-shift{ border:1px solid rgba(0,0,0,.08); border-radius:14px; padding:10px; margin-bottom:10px; background:#fff; }
+.posinv-shift-grid{ display:grid; grid-template-columns:1fr; gap:10px; margin-top:8px; }
+.posinv-shift-grid input{ width:100%; }
+.posinv-shift-grid button{ margin-top:6px; width:100%; }
+.posinv-shift-sum{ margin-top:10px; display:flex; align-items:center; flex-wrap:wrap; gap:6px; }
+
+@media(min-width:720px){
+  .posinv-shift-grid{ grid-template-columns:repeat(3, 1fr); }
+  .posinv-shift-grid button{ width:auto; }
+}
+
+
+/* =========================
+   POS INVENTARIO - Devolución (solo diseño)
+   ========================= */
+#posinvReturnBox .posinv-return-row{
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
+  align-items:center;
+}
+#posinvReturnBox .posinv-return-row input{
+  flex:1 1 220px;
+}
+#posinvReturnBox .posinv-return-summary{
+  margin-top:8px;
+}
+#posinvReturnBox .posinv-return-grid{
+  display:grid;
+  grid-template-columns: 1fr 1fr;
+  gap:10px;
+  margin-top:10px;
+}
+#posinvReturnBox select, #posinvReturnBox input{
+  width:100%;
+}
+#posinvReturnBox .posinv-pill{
+  display:inline-block;
+  padding:2px 8px;
+  border-radius:999px;
+  font-size:12px;
+  margin-left:8px;
+}
+#posinvReturnBox .posinv-pill-warn{
+  background:#fff3cd;
+  border:1px solid #ffeeba;
+}
+@media (max-width: 720px){
+  #posinvReturnBox .posinv-return-grid{
+    grid-template-columns: 1fr;
+  }
+}
+
+
+/* POSINV: botones deshabilitados (p. ej. Eliminar sin permiso) */
+.posinv-btn.is-disabled,
+.posinv-btn[disabled]{
+  opacity: .55;
+  cursor: not-allowed;
+}
+
+
+/* Scanner modal compact + horizontal */
+#posinvScanModal .posinv-modal-card{max-width:340px !important;}
+.posinv-scan-reader{position:relative; width:100%; max-width:280px; aspect-ratio:16/9; min-height:auto !important; height:auto; margin:0 auto; border:1px solid #ddd; border-radius:14px; padding:0; overflow:hidden; background:#111;}
+.posinv-scan-reader video,
+.posinv-scan-reader canvas{width:100% !important; height:100% !important; object-fit:cover; border-radius:14px;}
+.posinv-scan-guide{position:absolute; inset:0; pointer-events:none; z-index:5;}
+.posinv-scan-guide::before{content:''; position:absolute; inset:0; background:rgba(0,0,0,.28);}
+.posinv-scan-guide::after{content:''; position:absolute; left:50%; top:50%; width:72%; height:34%; transform:translate(-50%,-50%); border:2px solid rgba(255,255,255,.95); border-radius:12px; box-shadow:0 0 0 9999px rgba(0,0,0,.28);}
+
+
+/* Caja: ajustes de layout */
+#posinvShiftBox{margin-bottom:12px}
+#posinvDiscountBox{display:none !important}
+.posinv-pay-mixed{display:none;flex-direction:column;gap:8px;width:100%}
+.posinv-pay-split-row{display:flex;gap:8px;align-items:center;flex-wrap:wrap;width:100%}
+.posinv-pay-split-row select{min-width:220px}
+.posinv-pay-split-row input{min-width:180px;flex:1}
+@media (max-width: 980px){
+  .posinv-pay-split-row select,
+  .posinv-pay-split-row input{width:100%;min-width:0}
+}
+
+
+.posinv-pay-open{min-width:280px;justify-content:flex-start;text-align:left;white-space:normal;line-height:1.2}
+.posinv-pay-modal-card{max-width:560px;width:min(92vw,560px)}
+.posinv-pay-split-wrap{display:flex;flex-direction:column;gap:10px;margin-top:8px}
+.posinv-pay-split-row{display:grid;grid-template-columns:minmax(0,1fr) minmax(140px,180px);gap:8px;align-items:center;width:100%}
+.posinv-pay-split-row select,.posinv-pay-split-row input{width:100%;min-width:0}
+@media (max-width: 640px){
+  .posinv-pay-open{min-width:0;width:100%}
+  .posinv-pay-split-row{grid-template-columns:1fr}
+}
+
+.posinv-pay-options{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin-top:8px}
+@media (max-width:640px){.posinv-pay-options{grid-template-columns:1fr}}
+.posinv-pay-choice.is-active{background:#cfaed5;border-color:#b58cbf}
+.posinv-shift-salesby{flex-wrap:wrap;row-gap:6px}
+.posinv-shift-report-card{max-width:min(96vw,980px);width:min(96vw,980px)}
+.posinv-shift-report-body{max-height:75vh;overflow:auto}
+.posinv-shift-report-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-bottom:8px}
+@media (max-width:700px){.posinv-shift-report-grid{grid-template-columns:1fr}}
+.posinv-shift-report-list{display:flex;flex-direction:column;gap:8px}
+.posinv-shift-report-item{padding:10px;border:1px solid #e7d8ea;border-radius:12px;background:#fff}
+.posinv-shift-report-table{display:flex;flex-direction:column;gap:6px}
+.posinv-shift-report-tr{display:grid;grid-template-columns:1.1fr 1.2fr repeat(4,minmax(90px,1fr));gap:8px;padding:8px 10px;border:1px solid #eee;border-radius:12px;background:#fff;align-items:center}
+.posinv-shift-report-th{font-weight:700;background:#f6eef8}
+@media (max-width:860px){.posinv-shift-report-tr{grid-template-columns:repeat(2,minmax(0,1fr))}}
+
+#posinvShiftWithdrawAmountMirror[readonly]{background:#f7f1f8;color:#555}
+
+#posinvNoticeBody{white-space:pre-wrap;font-size:16px;line-height:1.45;}
+.posinv-notice-card{max-width:520px;}
+#posinvCart{max-height:none !important;overflow:visible !important;}
+
+.posinv-tras-stockbtn{display:inline-flex;align-items:center;justify-content:center;min-width:34px;padding:4px 8px;border:1px solid #cdbfd1;border-radius:10px;background:#fff;color:#111;cursor:pointer;font-weight:700;}
+.posinv-tras-stockbtn:hover{background:#f6eef8;}
+
+
+/* Tabs visibles en celular */
+.posinv-tabs{flex-wrap:wrap;overflow-x:auto;-webkit-overflow-scrolling:touch;row-gap:8px}
+@media (max-width: 980px){
+  .posinv-tabs{display:flex;flex-wrap:wrap !important;overflow-x:auto;white-space:normal}
+  .posinv-tab{flex:0 0 auto}
+}
+
+
+/* ===== v124: evitar encimados en Traspaso/Bodega ===== */
+#posinv_tras_table,
+#posinv_tras_history_table,
+#posinv_bodega_loc_table,
+#posinv_bodega_table{
+  table-layout: fixed;
+  width: 100%;
+}
+#posinv_tras_table th,
+#posinv_tras_table td,
+#posinv_tras_history_table th,
+#posinv_tras_history_table td,
+#posinv_bodega_loc_table th,
+#posinv_bodega_loc_table td,
+#posinv_bodega_table th,
+#posinv_bodega_table td{
+  vertical-align: top;
+}
+#posinv_tras_table .posinv-td-code,
+#posinv_tras_table .posinv-td-product,
+#posinv_tras_table .posinv-td-locs,
+#posinv_tras_history_table td,
+#posinv_bodega_loc_table .posinv-td-code,
+#posinv_bodega_loc_table .posinv-td-product,
+#posinv_bodega_table .posinv-td-code,
+#posinv_bodega_table .posinv-td-product{
+  white-space: normal !important;
+  word-break: break-word;
+  overflow-wrap: anywhere;
+  line-height: 1.25;
+}
+#posinv_tras_table .posinv-td-total,
+#posinv_tras_table td:nth-child(5),
+#posinv_tras_table td:nth-child(6),
+#posinv_tras_table td:nth-child(7),
+#posinv_tras_table td:nth-child(9){
+  text-align: center;
+}
+#posinv_tras_table th:nth-child(8),
+#posinv_tras_table td:nth-child(8){
+  min-width: 220px;
+}
+#posinv_tras_history_table th:nth-child(1),
+#posinv_tras_history_table td:nth-child(1){ min-width: 150px; }
+#posinv_tras_history_table th:nth-child(5),
+#posinv_tras_history_table td:nth-child(5),
+#posinv_tras_history_table th:nth-child(10),
+#posinv_tras_history_table td:nth-child(10){
+  white-space: normal !important;
+  overflow-wrap: anywhere;
+}
